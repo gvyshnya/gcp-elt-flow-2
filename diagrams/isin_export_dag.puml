@@ -1,0 +1,8 @@
+@startuml 1
+(*) --> "Save data to csv file"
+note right: From BQ 
+--> "Upload to Azure"
+-->"Delete csv file"
+note left: Delete used data in csv file
+--> (*)
+@enduml

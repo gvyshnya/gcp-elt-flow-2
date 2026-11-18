@@ -1,0 +1,16 @@
+@startuml Automated_PDF_Report_Parsing_DAG
+scale 2
+start
+
+:Connect to the Google
+Shared drive;
+
+repeat
+  :Upload the pdf file 
+  to the GCP bucket;
+  :Complete the PDF parsing flow;
+repeat while (more pdf files in the shared Google drive?) is (yes)
+->no;
+:Fire the  slack notification upon success;
+stop
+@enduml

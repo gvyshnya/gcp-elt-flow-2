@@ -1,0 +1,11 @@
+@startuml 1
+(*) --> "Create tmp Table"
+-->[to check lei and url] "Get information"
+-->[Does url exist??] "Download data"
+--> "Update download status"
+-->"Drop tmp table"
+--> (*)
+@enduml
+
+
+

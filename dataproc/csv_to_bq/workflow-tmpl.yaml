@@ -1,0 +1,56 @@
+jobs:
+- pysparkJob:
+    args:
+    - csv_file,
+    - gcp_project_id, 
+    - dataset_name, 
+    - table_name,
+    - temp_gcp_bucket_name
+    mainPythonFileUri: main_python_file_parameter
+  stepId: csv-to-bq-pyspark
+placement:
+  managedCluster:
+    clusterName: csv-to-bq-cluster
+    config:
+      gceClusterConfig:
+        internalIpOnly: false
+        zoneUri: europe-west1-b
+        serviceAccount: bi-flow-dev@lorelee-keep-312708.iam.gserviceaccount.com
+      masterConfig:
+        diskConfig:
+          bootDiskSizeGb: 150
+        machineTypeUri: n1-standard-2
+      softwareConfig:
+        imageVersion: 1.5-debian10
+        properties:
+          spark:spark.jars: gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar
+      workerConfig:
+        diskConfig:
+          bootDiskSizeGb: 300
+        machineTypeUri: n1-standard-2
+        numInstances: 2
+parameters:
+- description: Python script to run
+  fields:
+  - jobs['csv-to-bq-pyspark'].pysparkJob.mainPythonFileUri
+  name: MAIN_PYTHON_FILE
+- description: Path or GCS URI of a csv file with source data
+  fields:
+  - jobs['csv-to-bq-pyspark'].pysparkJob.args[0]
+  name: CSV_FILE
+- description: The GCP project ID where the target BigQuery dataset and table are located
+  fields:
+  - jobs['csv-to-bq-pyspark'].pysparkJob.args[1]
+  name: GCP_PROJECT_ID
+- description: The name of the BigQuery dataset with the target table
+  fields:
+  - jobs['csv-to-bq-pyspark'].pysparkJob.args[2]
+  name: DATASET_NAME
+- description: The name of the BigQuery target table
+  fields:
+  - jobs['csv-to-bq-pyspark'].pysparkJob.args[3]
+  name: TABLE_NAME
+- description: The name (without uri part of 'gs://') of the GCP bucket used by Spark for temp files/operations
+  fields:
+  - jobs['csv-to-bq-pyspark'].pysparkJob.args[4]
+  name: TEMP_GCP_BUCKET_NAME

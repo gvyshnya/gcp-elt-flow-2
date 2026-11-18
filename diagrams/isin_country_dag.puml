@@ -1,0 +1,9 @@
+@startuml 1
+(*) --> "From BQ create csv files"
+note right: Create files by country
+--> "Upload to Azure"
+-->"Delete all csv"
+note right: Delete files by country
+note left:Clean bulk
+--> (*)
+@enduml

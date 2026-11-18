@@ -1,0 +1,8 @@
+@startuml 1
+(*) --> "Create csv file for last day"
+note right: take data from BQ
+--> "Upload to Azure"
+-->"Delete csv"
+note right: delete used file
+--> (*)
+@enduml

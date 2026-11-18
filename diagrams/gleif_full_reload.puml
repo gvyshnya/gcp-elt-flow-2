@@ -1,0 +1,22 @@
+@startuml
+(*) --> "Cleanup basket"
+--> "Download csv"
+--> "Unzip csv"
+--> "Import csv to staging BQ"
+--> "Group staging"
+--> ===B1===
+--> "Delete entities"
+--> ===B2==
+===B1=== --> "Delete exceptions"
+--> ===B2===
+===B1=== --> "Delete ownership"
+--> ===B2===
+--> "Group deletes"
+--> ===B3===
+--> "Exceptions to Semantics"
+--> ===B4==
+===B3=== --> "Ownership go Semantics"
+--> ===B4===
+===B3=== --> "Entetities to Semantics
+--> (*)
+@enduml

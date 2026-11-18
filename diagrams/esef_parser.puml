@@ -1,0 +1,9 @@
+@startuml 1
+(*) --> "Get esef attributes"
+-->[to collect attributes] "Parse esef"
+-->"Put to Golden DB"
+--> (*)
+@enduml
+
+
+

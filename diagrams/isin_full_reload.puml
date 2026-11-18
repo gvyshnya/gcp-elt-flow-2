@@ -1,0 +1,12 @@
+@startuml 1
+(*) --> "Clean up directory"
+note right: in Google Cloud Storage
+-->[Take zipfile from site] "Download zip"
+note right: from gleif.org
+-->"Unzip csv file"
+-->"Import csv to staging BQ"
+note right: Clean and transform
+-->[final stage, put clean file to final destination]"Staging to master"
+note left: Put to BQ
+--> (*)
+@enduml

@@ -1,0 +1,48 @@
+@startuml Automated_PDF_Report_Parsing_Information_Flow
+scale 2
+start
+
+#lightblue:Upload a PDF Report 
+file to a **Shared Google Drive**;
+
+#lightblue:Provide the user email 
+as well the annotation to 
+tables or plain text to extract from PDF 
+(**page numbers, boundaries**);
+
+:Copy the PDF Document file
+to the GCP bucket;
+
+#palegreen:Identify the PDF Document;
+
+if (LEI and Company Name detected?) then
+  #pink:fire error;
+  kill
+endif
+
+#palegreen:Extract the tabular 
+or/and text data from PDF;
+
+if (Target data extractred?) then
+  #pink:fire error;
+  kill
+endif
+
+:Find target attributes and values 
+(EBITDA, Revenue/Income etc. as configured);
+
+if (Target attributes is found?) then (yes)
+    :Save __target attributes__ 
+    to BigQuery DB;
+    :Save __file parsing results__ 
+    to BigQuery DB;
+else (no)
+    :Save __file parsing results__ 
+    to BigQuery DB;
+endif
+
+:Send the email notification
+with parsing results to the user;
+
+stop
+@enduml
